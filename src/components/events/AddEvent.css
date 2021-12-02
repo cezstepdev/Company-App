@@ -1,0 +1,10 @@
+.add-events {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-add-event {
+    display: flex;
+    justify-content: center;
+}

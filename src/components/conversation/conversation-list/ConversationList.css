@@ -1,0 +1,7 @@
+#conversation-list {
+    grid-area: conversation-list;
+    background: rgb(53, 57, 61);
+    overflow-y: scroll;
+    width: 30rem;
+    border-right: 1px solid rgb(43, 47, 51);
+}

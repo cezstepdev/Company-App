@@ -1,0 +1,45 @@
+.main-settings {
+    display: flex;
+    justify-content: center;
+}
+
+.setting-card {
+    width: 500px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-input {
+    display: grid;
+    margin: 5px 0px;
+}
+
+.p-d-block {
+    margin-left: 5px;
+}
+
+.operation-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.username {
+    margin-right: 10px;
+}

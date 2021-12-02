@@ -1,0 +1,20 @@
+.main-details {
+    display: block;
+}
+
+.details {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.details-card {
+    width: 600px;
+}
+
+.done-path {
+    display: flex;
+}
+
+.path {
+    width: 90vw;
+}
