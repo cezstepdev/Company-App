@@ -86,3 +86,7 @@ input[type="search"] {
     background: #C8E6C9;
     color: #256029;
 }
+
+.required {
+    border: 1px solid red;
+}

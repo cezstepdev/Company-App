@@ -14,15 +14,19 @@ import {InputText} from 'primereact/inputtext';
 import './DataTableDemo.css';
 import TaskDetails from "../task-details/TaskDetails";
 import axios from "axios";
+import {Calendar} from "primereact/calendar";
 
 export class DataTableCrudDemo extends Component {
 
     emptyProduct = {
         id: null,
         username: '',
+        title: '',
         taskDescription: '',
         taskStatus: 'waiting',
-        createDate: ''
+        createDate: '',
+        department: '',
+        dueDate: ''
     };
 
     constructor(props) {
@@ -39,7 +43,8 @@ export class DataTableCrudDemo extends Component {
             globalFilter: null,
             expandedRows: null,
             suggestions: [],
-            customers: []
+            customers: [],
+            dueDate: ''
         };
 
         this.productService = new ProductService();
@@ -99,8 +104,9 @@ export class DataTableCrudDemo extends Component {
 
     saveProduct() {
         let state = {submitted: true};
+        this.setState({submitted: true});
 
-        if (this.state.product.username.trim()) {
+        if (this.state.product.department && this.state.product.title) {
             let products = [...this.state.products];
             let product = {...this.state.product};
             if (this.state.product.id) {
@@ -112,7 +118,8 @@ export class DataTableCrudDemo extends Component {
                     title: product.title,
                     taskDescription: product.taskDescription,
                     complexity: product.complexity,
-                    taskStatus: product.taskStatus
+                    taskStatus: product.taskStatus,
+                    dueDate: product.dueDate
                 };
 
                 const config = {
@@ -149,7 +156,9 @@ export class DataTableCrudDemo extends Component {
                     username: product.username,
                     title: product.title,
                     taskDescription: product.taskDescription,
-                    complexity: product.complexity
+                    complexity: product.complexity,
+                    department: product.department,
+                    dueDate: product.dueDate
                 };
 
                 const config = {
@@ -161,10 +170,11 @@ export class DataTableCrudDemo extends Component {
                 axios.post('http://localhost:8080/api/v1/task', data, config).then(
                     res => {
                         product.id = res.data.id;
-                        product.dueDate = res.data.dueDate;
                         product.taskStatus = res.data.taskStatus;
+                        product.username = res.data.username;
                         this.toast.show({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
 
+                        products.push(product);
                         state = {
                             ...state,
                             products,
@@ -252,7 +262,7 @@ export class DataTableCrudDemo extends Component {
         let tmp;
         const val = (e.target && e.target.value) || '';
 
-        if (username === "username") {
+        if (username === "username" || username === 'department') {
             tmp = val.substring(1);
         } else {
             tmp = val;
@@ -305,6 +315,12 @@ export class DataTableCrudDemo extends Component {
         );
     }
 
+    onDueDateChange = (event) => {
+        let product = {...this.state.product}
+        product['dueDate'] = event.target.value.toLocaleDateString('en-CA');
+        this.setState({product});
+    }
+
     render() {
         const header = (
             <div className="table-header">
@@ -332,7 +348,28 @@ export class DataTableCrudDemo extends Component {
             </React.Fragment>
         );
 
+        const onSearch = (event) => {
+            let customers = [{name: 'Developers'},{name: 'Testers'},{name: 'Analytics'}];
+            setTimeout(() => {
+                const query = event.query;
+                let suggestions;
+
+                if (!query.trim().length) {
+                    suggestions = [...customers];
+                } else {
+                    suggestions = customers.filter((customer) => {
+                        return customer.name.toLowerCase().startsWith(query.toLowerCase());
+                    });
+                }
+
+                this.setState({suggestions: suggestions});
+                console.log(suggestions);
+            }, 250);
+        }
+
         const getUsers = () => {
+
+            ///szukanie tylko po departamencie
             const config = {
                 headers: {
                     Authorization: localStorage.getItem('token')
@@ -346,7 +383,7 @@ export class DataTableCrudDemo extends Component {
             );
         }
 
-        const onSearch = (event) => {
+        const onUserSearch = (event) => {
             getUsers();
             let customers = this.state.customers;
             setTimeout(() => {
@@ -393,14 +430,29 @@ export class DataTableCrudDemo extends Component {
 
                 <Dialog visible={this.state.productDialog} style={{width: '450px'}} header="Product Details" modal
                         className="p-fluid" footer={productDialogFooter} onHide={this.hideDialog}>
-                    <div className="p-field">
+                    {this.state.product.id && <div className="p-field">
                         <label htmlFor="username">Users</label>
-                        <Mention suggestions={this.state.suggestions} onSearch={onSearch} field="username"
+                        <Mention suggestions={this.state.suggestions} onSearch={onUserSearch} field="username"
                                  onChange={(e) => this.onInputChange(e, 'username')}
                                  placeholder="Please enter @ to mention people" required autoFocus
                                  className={classNames({'p-invalid': this.state.submitted && !this.state.product.username})}/>
                         {this.state.submitted && !this.state.product.username &&
                         <small className="p-error">Name is required.</small>}
+                    </div>}
+
+                    <div className="p-field">
+                        <label htmlFor="department">Department</label>
+                        <Mention suggestions={this.state.suggestions} onSearch={onSearch} field="name"
+                                 onChange={(e) => this.onInputChange(e, 'department')}
+                                 placeholder="Please enter @ to mention department" required autoFocus
+                                 className={classNames({'required': this.state.submitted && !this.state.product.department})}/>
+
+                         {this.state.submitted && !this.state.product.department.length && <small className="p-error">Department is required.</small>}
+                    </div>
+
+                    <div className="p-field">
+                        <label htmlFor="Due Date">Due Date</label>
+                        <Calendar value={this.state.dueDate} dateFormat="dd/mm/yy" onChange={(e) => this.onDueDateChange(e)} showButtonBar></Calendar>
                     </div>
 
                     <div className="p-field">
