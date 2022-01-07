@@ -72,8 +72,10 @@ export class DataTableCrudDemo extends Component {
             }
         };
 
-        axios.get('http://localhost:8080/api/v1/task/all', config).then(
+        console.log('http://localhost:8080/api/v1/task/' + localStorage.getItem("username"));
+        axios.get('http://localhost:8080/api/v1/task/' + localStorage.getItem("username"), config).then(
             res => {
+                console.log(res);
                 this.setState({products: res.data})
             }
         );
@@ -119,7 +121,11 @@ export class DataTableCrudDemo extends Component {
                     taskDescription: product.taskDescription,
                     complexity: product.complexity,
                     taskStatus: product.taskStatus,
-                    dueDate: product.dueDate
+                    dueDate: product.dueDate,
+                    inProgressDate: product.inProgressDate,
+                    createDate: product.createDate,
+                    testingDate: product.testingDate,
+                    doneDate: product.doneDate
                 };
 
                 const config = {
@@ -292,7 +298,13 @@ export class DataTableCrudDemo extends Component {
     }
 
     statusBodyTemplate(rowData) {
-        return <span className={`product-badge status-${rowData.taskStatus.toLowerCase()}`}>{rowData.taskStatus}</span>;
+        let today = new Date();
+        let dueDate = new Date(rowData.dueDate);
+        return <div>
+            {(dueDate.getDate() >= today.getDate()) && <span className={`product-badge status-${rowData.taskStatus.toLowerCase()}`}>{rowData.taskStatus}</span>}
+            {(dueDate.getDate() - 1 <= today.getDate()) && (dueDate.getDate() - today.getDate() >= 0) && <i className="pi pi-calendar-times"></i>}
+            {(dueDate.getDate() < today.getDate()) && <span className={`product-badge status-expired`}>Expired</span>}
+        </div>;
     }
 
     actionBodyTemplate(rowData) {
@@ -368,15 +380,13 @@ export class DataTableCrudDemo extends Component {
         }
 
         const getUsers = () => {
-
-            ///szukanie tylko po departamencie
             const config = {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
             };
 
-            axios.get('http://localhost:8080/test/all', config).then(
+            axios.get('http://localhost:8080/api/v1/user/department/' + this.state.product.department, config).then(
                 res => {
                     this.setState({customers: res.data})
                 }
@@ -452,7 +462,7 @@ export class DataTableCrudDemo extends Component {
 
                     <div className="p-field">
                         <label htmlFor="Due Date">Due Date</label>
-                        <Calendar value={this.state.dueDate} dateFormat="dd/mm/yy" onChange={(e) => this.onDueDateChange(e)} showButtonBar></Calendar>
+                        <Calendar value={this.state.product.dueDate} dateFormat="dd/mm/yy" onChange={(e) => this.onDueDateChange(e)} showButtonBar></Calendar>
                     </div>
 
                     <div className="p-field">

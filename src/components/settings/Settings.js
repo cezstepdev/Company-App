@@ -90,7 +90,7 @@ export class Settings extends Component {
                         <div className="card-title">
                             <div className="edit-button">
                                 <span className="username">
-                                    Adam
+                                    {this.state.username}
                                 </span>
                                 <Button style={{display: this.state.editable ? "inline-flex" : "none"}} icon="pi pi-user-edit" className="p-button-rounded p-button-success p-button-outlined" onClick={this.onEditClick}/>
                             </div>
@@ -110,11 +110,11 @@ export class Settings extends Component {
                                 <InputText disabled={this.state.editable} id="in" value={this.state.firstName} onChange={(e) => this.setState({firstNam: e.target.value})} />
                             </div>
                             <div className="p-field single-input">
-                                <label htmlFor="username1" className="p-d-block">First Name</label>
+                                <label htmlFor="username1" className="p-d-block">Last Name</label>
                                 <InputText disabled={this.state.editable} id="in" value={this.state.lastName} onChange={(e) => this.setState({lastName: e.target.value})} />
                             </div>
                             <div className="p-field single-input">
-                                <label htmlFor="username1" className="p-d-block">First Name</label>
+                                <label htmlFor="username1" className="p-d-block">Birthday</label>
                                 <Calendar disabled={this.state.editable} id="in" dateFormat="yy-mm-dd" value={new Date(Date.parse(this.state.birthday))} onChange={(e) => this.setState({birthday: e.value})}/>
                             </div>
                             <div className="operation-buttons" style={{display: this.state.editable ? "none" : "flex"}}>

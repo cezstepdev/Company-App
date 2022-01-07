@@ -65,11 +65,16 @@ input[type="search"] {
     font-weight: 700;
     font-size: 12px;
     letter-spacing: .3px;
+    margin-right: 10px;
 }
 
 .product-badge.status-waiting {
     background: #FFCDD2;
     color: #C63737;
+}
+
+.product-badge.status-expired {
+    background: #CCC;
 }
 
 .product-badge.status-inprogress {

@@ -304,7 +304,7 @@ export const conversationsSaga = function* () {
         }
     };
 
-    while (true) {
+    // while (true) {
         axios.get('http://localhost:8080/api/v1/conversation/' + user, config).then(
             res => {
                 if (res.data.length > 0)
@@ -320,7 +320,7 @@ export const conversationsSaga = function* () {
                 selectedConversation: conversations[0]
             }
         });
-    }
+    // }
 }
 
 export function* watchGetConversationsAsync() {
