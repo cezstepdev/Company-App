@@ -56,7 +56,7 @@ const TaskDetails = ({task}) => {
             }
         };
 
-        axios.patch('http://localhost:8080/api/v1/task/' + task.id, data, config).then(res => {
+        axios.patch('https://company-manager-api.herokuapp.com/api/v1/task/' + task.id, data, config).then(res => {
             setActiveIndex(activeIndex + 1);
             if(activeIndex > 1) {
                 setDisable(true);

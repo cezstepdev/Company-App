@@ -55,7 +55,7 @@ const conversationsReducer = (state = initialState, action) => {
                     }
                 };
 
-                axios.post("http://localhost:8080/api/v1/message", data, config).then(r => {
+                axios.post("https://company-manager-api.herokuapp.com/api/v1/message", data, config).then(r => {
                     console.log(r);
                 });
                 return newState;

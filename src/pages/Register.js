@@ -17,7 +17,7 @@ const Register = () => {
             };
 
             axios
-                .post('http://localhost:8080/api/v1/registration', data)
+                .post('https://company-manager-api.herokuapp.com/api/v1/registration', data)
                 .then(
                     res => {
                         setRedirect(true);

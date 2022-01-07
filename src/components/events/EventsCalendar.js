@@ -47,7 +47,7 @@ export class EventsCalendar extends Component {
                     }
                 };
 
-                axios.delete('http://localhost:8080/api/v1/event/' + e.event.id, config)
+                axios.delete('https://company-manager-api.herokuapp.com/api/v1/event/' + e.event.id, config)
                     .then(res => {
                         this.getEvents();
                     })
@@ -69,7 +69,7 @@ export class EventsCalendar extends Component {
             }
         };
 
-        axios.get('http://localhost:8080/api/v1/event', config)
+        axios.get('https://company-manager-api.herokuapp.com/api/v1/event', config)
             .then(
                 res =>
                 {

@@ -305,7 +305,7 @@ export const conversationsSaga = function* () {
     };
 
     // while (true) {
-        axios.get('http://localhost:8080/api/v1/conversation/' + user, config).then(
+        axios.get('https://company-manager-api.herokuapp.com/api/v1/conversation/' + user, config).then(
             res => {
                 if (res.data.length > 0)
                     conversations = res.data;

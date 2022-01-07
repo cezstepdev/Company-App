@@ -30,7 +30,7 @@ export class Settings extends Component {
             }
         };
 
-        axios.get('http://localhost:8080/api/v1/user/' + localStorage.getItem('username'), config)
+        axios.get('https://company-manager-api.herokuapp.com/api/v1/user/' + localStorage.getItem('username'), config)
             .then(
                 res =>
                 {
@@ -71,7 +71,7 @@ export class Settings extends Component {
             birthday: this.state.birthday
         }
 
-        axios.post('http://localhost:8080/api/v1/user' , data, config).then(res => {
+        axios.post('https://company-manager-api.herokuapp.com/api/v1/user' , data, config).then(res => {
             //toast
             this.setState({editable: true});
         });

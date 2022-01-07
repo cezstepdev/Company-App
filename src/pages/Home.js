@@ -10,7 +10,7 @@ const Home = () => {
       }
     };
 
-    axios.get('http://localhost:8080/api/v1/user/' + localStorage.getItem('username'), config)
+    axios.get('https://company-manager-api.herokuapp.com/api/v1/user/' + localStorage.getItem('username'), config)
         .then(
             res =>
             {

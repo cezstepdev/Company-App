@@ -49,7 +49,7 @@ export class AddEvent extends Component {
                 end: this.state.end
             };
 
-            axios.post('http://localhost:8080/api/v1/event', data, config)
+            axios.post('https://company-manager-api.herokuapp.com/api/v1/event', data, config)
                 .then(
                     res =>
                     {

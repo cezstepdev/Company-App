@@ -72,8 +72,8 @@ export class DataTableCrudDemo extends Component {
             }
         };
 
-        console.log('http://localhost:8080/api/v1/task/' + localStorage.getItem("username"));
-        axios.get('http://localhost:8080/api/v1/task/' + localStorage.getItem("username"), config).then(
+        console.log('https://company-manager-api.herokuapp.com/api/v1/task/' + localStorage.getItem("username"));
+        axios.get('https://company-manager-api.herokuapp.com/api/v1/task/' + localStorage.getItem("username"), config).then(
             res => {
                 console.log(res);
                 this.setState({products: res.data})
@@ -134,7 +134,7 @@ export class DataTableCrudDemo extends Component {
                     }
                 };
 
-                axios.patch('http://localhost:8080/api/v1/task', data, config).then(
+                axios.patch('https://company-manager-api.herokuapp.com/api/v1/task', data, config).then(
                     res => {
                         product.username = res.data.username;
                         product.title = res.data.title;
@@ -173,7 +173,7 @@ export class DataTableCrudDemo extends Component {
                     }
                 };
 
-                axios.post('http://localhost:8080/api/v1/task', data, config).then(
+                axios.post('https://company-manager-api.herokuapp.com/api/v1/task', data, config).then(
                     res => {
                         product.id = res.data.id;
                         product.taskStatus = res.data.taskStatus;
@@ -222,7 +222,7 @@ export class DataTableCrudDemo extends Component {
             }
         };
 
-        axios.delete('http://localhost:8080/api/v1/task/' + this.state.product.id, config)
+        axios.delete('https://company-manager-api.herokuapp.com/api/v1/task/' + this.state.product.id, config)
             .then(r => console.log(r))
             .catch(reason => console.log(reason));
         this.toast.show({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
@@ -386,7 +386,7 @@ export class DataTableCrudDemo extends Component {
                 }
             };
 
-            axios.get('http://localhost:8080/api/v1/user/department/' + this.state.product.department, config).then(
+            axios.get('https://company-manager-api.herokuapp.com/api/v1/user/department/' + this.state.product.department, config).then(
                 res => {
                     this.setState({customers: res.data})
                 }

@@ -16,7 +16,7 @@ const Login = () => {
         };
 
         axios
-            .post('http://localhost:8080/login', data)
+            .post('https://company-manager-api.herokuapp.com/login', data)
             .then(
                 res => {
                     localStorage.setItem('token', res.data.token);
